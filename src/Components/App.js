@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import FeedbackOptions from "./FeedbackOptions";
+import Section from "./Section";
+import Statistics from "./Statistics";
+import Notification from "./Notification";
 
-export default class Feedback extends Component {
+export default class App extends Component {
 
   static propTypes = {
     state: PropTypes.shape({
