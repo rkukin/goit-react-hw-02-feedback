@@ -1,19 +1,10 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import FeedbackOptions from "./FeedbackOptions";
 import Section from "./Section";
 import Statistics from "./Statistics";
 import Notification from "./Notification";
 
 export default class App extends Component {
-
-  static propTypes = {
-    state: PropTypes.shape({
-      good: PropTypes.number,
-      neutral: PropTypes.number,
-      bad: PropTypes.number
-    })
-  };
 
   state = {
     good: 0,
@@ -39,21 +30,24 @@ export default class App extends Component {
 
   render() {
     const options = Object.keys(this.state);
+    const positiveFeedbackPercentage = this.countPositiveFeedback();
+    const totalFeedbackCounter = this.countTotalFeedback();
+
 
     return (
         <>
-        <Section title={"Please leave feedback"}>
+        <Section title="Please leave feedback">
           <FeedbackOptions onLeaveFeedback={this.handleBtnClick} options={options}/>
         </Section>
           {this.countTotalFeedback() === 0
-              ? (<Notification message={"No feedback given"}></Notification>)
-              : (<Section title={"Statistics"}>
+              ? (<Notification message="No feedback given"/>)
+              : (<Section title="Statistics">
                 <Statistics
                     good={this.state.good}
                     bad={this.state.bad}
                     neutral={this.state.neutral}
-                    positivePercentage={this.countPositiveFeedback()}
-                    total={this.countTotalFeedback()}/>
+                    positivePercentage={positiveFeedbackPercentage}
+                    total={totalFeedbackCounter}/>
               </Section>)}
         </>
     )
